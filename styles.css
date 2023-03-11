@@ -1,0 +1,9 @@
+#main {
+    background-image: url("./src/poetry.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lead {
+    text-shadow: 5px 4px 5px rgba(0, 0, 0, 1);
+}
