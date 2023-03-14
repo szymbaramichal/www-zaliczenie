@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background-image: url("./src/poetry.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main {
+  background-color: rgba(255, 249, 249, 0.5);
+  border-radius: 13%;
+}
+
+.column {
+  float: left;
+  width: 14%;
+  padding: 10px;
+}
+
+.break {
+  height: 1%;
+  width: auto;
+  background-color: grey;
+  margin-bottom: 20px;
+}
+
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+  transition: opacity 1s;
+  filter: grayscale(100%);
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.container {
+  position: relative;
+  display: none;
+  width: 15%;
+}
+
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 1vw;
+  text-shadow: 5px 4px 5px rgba(0, 0, 0, 1);
+}
+
+.closebtn {
+  position: absolute;
+  right: 15px;
+  color: white;
+  font-size: 3vw;
+  cursor: pointer;
+}

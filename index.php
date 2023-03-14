@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
           <a href="#" class="navbar-brand d-flex align-items-center">
               <strong>Wiersze online</strong>
           </a>
-          <form class="form-group row pt-2">
+          <form class="row">
               <input type="email" class="form-control col-4" id="email" placeholder="Email">
               <input type="password" class="form-control col-4 ml-1" id="password" aria-describedby="emailHelp" placeholder="Hasło">
               <button type="submit" class="btn btn-success ml-2">Zaloguj!</button>
@@ -32,7 +32,7 @@
         <h1 class="jumbotron-heading text-capitalize text-white">Wiersze online</h1>
         <p class="lead text-white">Dodawaj i czytaj wiersze online! Korzystaj z liryki za darmo!</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Dodaj wiersz!</a>
+          <a href="addpoem.html" class="btn btn-primary my-2">Dodaj wiersz!</a>
           <a href="poets.html" class="btn btn-secondary my-2">Galeria poetów</a>
         </p>
       </div>
@@ -182,6 +182,7 @@
         <a href="#">Wróc na górę</a>
       </p>
       <p>Strona to projekt zaliczeniowy na przedmiot: Języki hipertekstowe i tworzenie stron WWW</p>
+      <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
       <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
     </div>
   </footer>

@@ -1,15 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poeci</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.poets.css">
     <link rel="icon" href="./src/icon.png">
 </head>
 <body>
+  <header>
+    <div class="navbar navbar-dark bg-dark pl-5">
+          <a href="index.html" class="navbar-brand">
+              <strong>Wiersze online</strong>
+          </a>
+    </div>
+  </header>
+
+  <div class="main">
+    <div style="text-align:center">
+      <h2>Galeria obrazów zaczytana z bazy danych</h2>
+      <p>Kliknij na obrazek, aby zobaczyć imię artysty</p>
+    </div>
+      
+    <div class="row">
+      <div class="column">
+        <img src="./src/poet1.jpg" alt="Fredrich von Schiller" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet2.jpg" alt="Pan z wąsem" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet3.jpg" alt="Znany brodacz" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet4.jpg" alt="William Shakespeare" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet5.jpg" alt="Oscar Phoeta" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet6.jpg" alt="Znany wszystkim poeta" style="width:100%" onclick="myFunction(this);">
+      </div>
+      <div class="column">
+        <img src="./src/poet7.jpg" alt="Julian Tuwim" style="width:100%" onclick="myFunction(this);">
+      </div>
+    </div>
+  </div>
+
+    <div class="container mt-5">
+      <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+      <img id="expandedImg" src="." style="width:100%">
+      <div id="imgtext"></div>
+    </div>
     
+    <script>
+    function myFunction(imgs) {
+      var expandImg = document.getElementById("expandedImg");
+      var imgText = document.getElementById("imgtext");
+      expandImg.src = imgs.src;
+      imgText.innerHTML = imgs.alt;
+      expandImg.parentElement.style.display = "block";
+    }
+    </script>
 </body>
 </html>
