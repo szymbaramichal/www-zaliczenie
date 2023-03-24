@@ -183,7 +183,34 @@
       </p>
       <p>Strona to projekt zaliczeniowy na przedmiot: Języki hipertekstowe i tworzenie stron WWW</p>
       <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
-      <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
+      <p>
+        <?php
+          $servername = "localhost";
+          $dbname = "projekt";
+          $username = "root";
+          $password = "";
+
+          $conn = new mysqli($servername, $username, $password, $dbname);
+
+          if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+          }
+
+          $sql = "SELECT Amount FROM Visitors WHERE Id = 1";
+
+          $result = $conn->query($sql);
+          $row = $result->fetch_assoc();
+          $amount = $row["Amount"];
+
+          echo "Stronę wyświetlono: " . $amount  . " razy.";
+
+          $amount++;
+
+          $sql = "UPDATE Visitors SET Amount=" .$amount. " WHERE Id = 1";
+          $conn->query($sql);
+
+          ?>
+      </p>
     </div>
   </footer>
 </body>
