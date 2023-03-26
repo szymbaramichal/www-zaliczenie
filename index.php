@@ -16,11 +16,23 @@
           <a href="#" class="navbar-brand d-flex align-items-center">
               <strong>Wiersze online</strong>
           </a>
-          <form class="row">
-              <input type="email" class="form-control col-4" id="email" placeholder="Email">
-              <input type="password" class="form-control col-4 ml-1" id="password" aria-describedby="emailHelp" placeholder="Hasło">
-              <button type="submit" class="btn btn-success ml-2">Zaloguj!</button>
-          </form>
+          <?php
+            if(!isset($_COOKIE["user"]))
+            {
+              echo '<form class="row" method="POST" action="authUser.php"> <input type="email" class="form-control col-3" name="email" placeholder="Email">
+              <input type="password" class="form-control col-3 ml-1" name="password" placeholder="Hasło">
+              <button type="submit" class="btn btn-success ml-2" name="action" value="LogIn">Zaloguj!</button>
+              <button type="submit" class="btn btn-info ml-2" name="action" value="Register">Załóż konto!</button>
+              </form>';
+            }
+            else
+            {
+              echo '<form class="row" method="POST" action="logout.php">
+              <p class="text-center text-info h3"> Witaj '.$_COOKIE["user"].'</p>
+              <button type="submit" class="btn btn-danger ml-2" name="action" value="Register">Wyloguj się!</button>
+              </form>';
+            }
+          ?>
       </div>
     </div>
   </header>
@@ -42,134 +54,52 @@
       <div class="container">
 
         <div class="row">
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
+            <?php
+              $servername = "localhost";
+              $dbname = "projekt";
+              $username = "root";
+              $password = "";
 
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
+              $conn = new mysqli($servername, $username, $password, $dbname);
 
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+              $sql = "SELECT Author, Title, Content, PoemDate FROM poems ORDER BY Id DESC LIMIT 9";
+
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                  $author = $row["Author"];
+                  $content = $row["Content"];
+                  $contentToDisplay = substr($content, 0, 35);
+                  $contentToDisplay .= "...";
+
+                  echo '          
+                  <div class="col-md-4">
+                  <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                      <p class="card-text">'.$contentToDisplay.'</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <button type="button" onclick="view()" class="btn btn-sm btn-outline-secondary">View</button>
+                          ';
+                            if(isset($_COOKIE["user"]))
+                            {
+                              if($author == $_COOKIE["user"] || $_COOKIE["user"] == 0)
+                              {
+                                echo '<button type="button" onclick="edit()" class="btn btn-sm btn-outline-info">Edit</button>';
+                              }
+                            }
+                  echo '
+                        </div>
+                        <small class="text-muted">'.$author.'</small>
+                      </div>
+                    </div>
                   </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
+                </div>';
+                }
+              }
+
+            ?>
         </div>
       </div>
     </div>
@@ -185,13 +115,6 @@
       <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
       <p>
         <?php
-          $servername = "localhost";
-          $dbname = "projekt";
-          $username = "root";
-          $password = "";
-
-          $conn = new mysqli($servername, $username, $password, $dbname);
-
           if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
           }
@@ -213,5 +136,16 @@
       </p>
     </div>
   </footer>
+
+
+  <script>
+    function view() {
+      
+    }
+
+    function edit() {
+
+    }
+  </script>
 </body>
 </html>
