@@ -42,7 +42,7 @@
     <section id="main" class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading text-capitalize text-white">Wiersze online</h1>
-        <p class="lead text-white">Dodawaj i czytaj wiersze online! Korzystaj z liryki za darmo!</p>
+        <p class="lead text-white">Dodawaj i czytaj wiersze online! Korzystaj z tekstów za darmo!</p>
         <p>
           <a href="addpoem.html" class="btn btn-primary my-2">Dodaj wiersz!</a>
           <a href="poets.html" class="btn btn-secondary my-2">Galeria poetów</a>
@@ -62,7 +62,7 @@
 
               $conn = new mysqli($servername, $username, $password, $dbname);
 
-              $sql = "SELECT Author, Title, Content, PoemDate FROM poems ORDER BY Id DESC LIMIT 9";
+              $sql = "SELECT Id, Author, Title, Content, PoemDate FROM poems ORDER BY Id DESC LIMIT 9";
 
               $result = $conn->query($sql);
 
@@ -80,16 +80,19 @@
                       <p class="card-text">'.$contentToDisplay.'</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <button type="button" onclick="view()" class="btn btn-sm btn-outline-secondary">View</button>
+                          <form method="POST" action="editView.php">
+                          <button type="submit" name="action" value="view" class="btn btn-sm btn-outline-secondary">View</button>
                           ';
                             if(isset($_COOKIE["user"]))
                             {
                               if($author == $_COOKIE["user"] || $_COOKIE["user"] == 0)
                               {
-                                echo '<button type="button" onclick="edit()" class="btn btn-sm btn-outline-info">Edit</button>';
+                                echo '<button type="submit" name="action" value="edit" class="btn btn-sm btn-outline-info">Edit</button>';
                               }
                             }
                   echo '
+                        <input type="password" style="display: none" name="id" value="'.$row["Id"].'">
+                        </form>
                         </div>
                         <small class="text-muted">'.$author.'</small>
                       </div>
@@ -136,16 +139,5 @@
       </p>
     </div>
   </footer>
-
-
-  <script>
-    function view() {
-      
-    }
-
-    function edit() {
-
-    }
-  </script>
 </body>
 </html>

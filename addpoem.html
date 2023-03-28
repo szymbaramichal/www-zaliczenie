@@ -18,22 +18,30 @@
     </div>
 </header>
 
-<div class="mt-10 d-flex justify-content-center text-center">
-    <form class="col-7" action="addPoem.php" method="post">
-        <div class="form-group">
-            <label for="title">Tytuł</label>
-            <input type="text" class="form-control" name="title">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm" style="background-image: url('./src/poet1.jpg'); background-repeat: no-repeat;">
         </div>
-          <div class="form-group">
-            <label for="year">Rok napisania</label>
-            <input type="number" class="form-control" name="year">
+        <div class="col-lg text-center">
+            <form class="form-control" action="addPoem.php" method="post">
+                <div class="form-group h1">
+                    <label for="title">Tytuł</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="form-group h1">
+                    <label for="year">Rok napisania</label>
+                    <input type="number" class="form-control" id="year" name="year">
+                </div>
+            <div class="form-group h1">
+                <label for="content">Treść</label>
+                <textarea style="resize: none" class="form-control" name="content" id="content" rows="25"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
-      <div class="form-group">
-        <label for="content">Treść</label>
-        <textarea class="form-control" name="content" rows="10"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        <div class="col-sm" style="background-image: url('./src/poet3.jpg'); background-repeat: no-repeat;">
+        </div>
+    </div>
 </div>
 
 </body>
