@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="icon" href="./src/icon.png">
-    <title>Wiersze</title>
-</head>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Poeci</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.addpoem.css">
+        <link rel="icon" href="./src/icon.png">
+    </head>
 <body>
 <header>
     <div class="navbar navbar-dark bg-dark pl-5">
@@ -17,63 +18,82 @@
     </div>
 </header>
 
-<?php
-    //VALIDATION
-    $title = $_POST["title"];
-    $content = $_POST["content"];
-    $year = $_POST["year"];
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm" style="background-image: url('./src/poet1.jpg'); background-repeat: no-repeat;">
+        </div>
+        <div class="col-lg text-center">
+            <form class="form-control" action="addPoemScript.php" method="post">
+                <div class="form-group h1">
+                    <label for="title">Tytuł</label>
+                    <?php
+                        $queries = array();
+                        $title = "";
+                        $year = 0;
+                        $content = "";
+                        parse_str($_SERVER['QUERY_STRING'], $queries);
+                        $id = $queries['id'] ?? null;
 
-    $validTitle = !empty($title);
-    $validUser = isset($_COOKIE["user"]);
-    $validContent = !empty($content);
-    $validYear = !empty($year);
+                        if(isset($id))
+                        {
+                            $servername = "localhost";
+                            $dbname = "projekt";
+                            $username = "root";
+                            $password = "";
+              
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+              
+                            $sql = "SELECT Id, Author, Title, Content, PoemDate FROM poems WHERE Id = $id";
+              
+                            $result = $conn->query($sql);
 
-    $allFieldsAreValid = $validTitle && $validContent && $validYear && $validUser;
-    
-    if (!$_SERVER["REQUEST_METHOD"] == "POST" || !$allFieldsAreValid) {
+                            $row = $result->fetch_assoc();
 
-      if (!$validUser) {
-        echo "Nie jesteś zalogowany. Zaloguj się na stronę. </br>";
-      }
+                            $title = $row["Title"];
+                            $year = $row["PoemDate"];
+                            $content = $row["Content"];
+                            echo '<input style="display: none" id="id" name="id" value="'.$id.'">';
+                            echo '<input type="text" class="form-control" id="title" name="title" value="'.$title.'">';
+                        }
+                        else
+                        {
+                            echo '<input type="text" class="form-control" id="title" name="title">';
+                        }
+                    ?>
+                </div>
+                <div class="form-group h1">
+                    <label for="year">Rok napisania</label>
+                    <?php
+                        if(isset($id))
+                        {
+                            echo '<input type="number" class="form-control" id="year" name="year" value="'.$year.'">';
+                        }
+                        else
+                        {
+                            echo '<input type="number" class="form-control" id="year" name="year">';
+                        }
+                    ?>
+                </div>
+            <div class="form-group h1">
+                <label for="content">Treść</label>
+                <?php
+                    if(isset($id))
+                    {
+                        echo '<textarea style="resize: none" class="form-control" name="content" id="content" rows="25">'.$content.'</textarea>';
+                    }
+                    else
+                    {
+                        echo '<textarea style="resize: none" class="form-control" name="content" id="content" rows="25"></textarea>';
+                    }
+                ?>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-sm" style="background-image: url('./src/poet3.jpg'); background-repeat: no-repeat;">
+        </div>
+    </div>
+</div>
 
-      if (!$validTitle) {
-        echo "Tytuł jest wymagany </br>";
-      }
-
-      if (!$validContent) {
-        echo "Treść jest wymagana </br>";
-      }
-    
-      if (!$validYear) {
-        echo "Rok napisania jest wymagany </br>";
-      }
-      
-      echo "<a href='addPoem.html'>Uzupełnij formularz jeszcze raz.</a>";
-    } else {
-        $servername = "localhost";
-        $dbname = "projekt";
-        $username = "root";
-        $password = "";
-    
-        $conn = new mysqli($servername, $username, $password, $dbname);
-    
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $sql = "INSERT INTO poems (Author, Title, PoemDate, Content) VALUES ('".$_COOKIE['user']."', '$title', $year, '$content')";
-
-        if($conn->query($sql)) 
-        {
-            echo "Dodano poprawnie wiersz! :) </br>";
-            echo "<a href='index.php'>Wróć na stronę</a>";
-        }
-        else
-        {
-            echo "Problem z dodaniem wiersza, spróbuj jeszcze raz :( </br>";
-            echo "<a href='index.php'>Wróć na stronę</a>";
-        }
-    }
-?>
 </body>
 </html>

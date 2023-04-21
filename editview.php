@@ -21,18 +21,18 @@
 <div class="text-center mt-5 w-100">
     <div class="card flex-md-row mb-4 box-shadow h-md-250">
       <div class="card-body">
+        <h1>
         <strong class="mb-2 text-primary text-center">Tytuł</strong>
-        <h3 class="mb-0">
-          <a class="text-dark" href="#">Featured post</a>
-        </h3>
-        <div class="mb-1 text-muted">Nov 12</div>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        </h1>
+        <h4 class="mb-0">
+          <a class="text-muted" href="#">Featured post</a>
+        </h4>
+        <div class="mb-1 text-muted">2003</div>
+        <p class="card-text">Teskt opowiadania</p>
         <a class="mt-5" href="index.php">Wróć na stronę główną</a>
       </div>
       <img class="card-img-right flex-auto d-none d-md-block" src="./src/poem.png" alt="Poem" style="width: 200px; height: 250px;">
     </div>
 </div>
-
-
 </body>
 </html>

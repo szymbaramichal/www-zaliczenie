@@ -81,7 +81,7 @@
     {
         echo "Coś poszło nie tak, cofnij się i spróbuj jeszcze raz!";
     }
-
+    $conn->close();
 ?>
 </body>
 </html>

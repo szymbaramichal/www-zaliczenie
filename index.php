@@ -44,7 +44,7 @@
         <h1 class="jumbotron-heading text-capitalize text-white">Wiersze online</h1>
         <p class="lead text-white">Dodawaj i czytaj wiersze online! Korzystaj z tekstów za darmo!</p>
         <p>
-          <a href="addpoem.html" class="btn btn-primary my-2">Dodaj wiersz!</a>
+          <a href="addpoem.php" class="btn btn-primary my-2">Dodaj wiersz!</a>
           <a href="poets.html" class="btn btn-secondary my-2">Galeria poetów</a>
         </p>
       </div>
@@ -69,6 +69,7 @@
               if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                   $author = $row["Author"];
+                  $id = $row["Id"];
                   $content = $row["Content"];
                   $contentToDisplay = substr($content, 0, 35);
                   $contentToDisplay .= "...";
@@ -85,9 +86,10 @@
                           ';
                             if(isset($_COOKIE["user"]))
                             {
-                              if($author == $_COOKIE["user"] || $_COOKIE["user"] == 0)
+                              if($author == $_COOKIE["user"] || $_COOKIE["role"] == 2)
                               {
-                                echo '<button type="submit" name="action" value="edit" class="btn btn-sm btn-outline-info">Edit</button>';
+                                echo '<a class="btn btn-sm btn-outline-info" href="addPoem.php?id='.$id.'">Edit</a>';
+                                echo '<a class="ml-1 btn btn-sm btn-outline-danger" href="delete.php?id='.$id.'">Delete</a>';
                               }
                             }
                   echo '
@@ -134,7 +136,7 @@
 
           $sql = "UPDATE Visitors SET Amount=" .$amount. " WHERE Id = 1";
           $conn->query($sql);
-
+          $conn->close();
           ?>
       </p>
     </div>
