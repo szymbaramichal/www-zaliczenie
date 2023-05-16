@@ -39,7 +39,14 @@
             $hashFromDb = $row["Password"];
             if(!password_verify($_POST['password'], $hashFromDb))
             {
-                echo "Niepoprawny login lub hasło. <a href='index.php'>Wróć na stronę</a>";
+                echo '<section id="main" class="jumbotron text-center">
+                <div class="container">
+                  <h1 class="jumbotron-heading text-black">Niepoprawny login lub hasło!</h1>
+                  <p>
+                    <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+                  </p>
+                </div>
+              </section>';
             }
             else
             {
@@ -48,7 +55,14 @@
                 header("Location: http://localhost/www-zaliczenie/index.php");
             }
         } else {
-            echo "Niepoprawny login lub hasło. <a href='index.php'>Wróć na stronę</a>";
+            echo '<section id="main" class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading text-black">Niepoprawny login lub hasło!</h1>
+              <p>
+                <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+              </p>
+            </div>
+          </section>';
         }
     }
     else if($_POST['action'] == 'Register')
@@ -57,7 +71,14 @@
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo "Już jest użytkownik o takim loginie.";
+            echo '<section id="main" class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading text-black">Użytkownik o podanym adresie Email już jest zalogowany.</h1>
+              <p>
+                <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+              </p>
+            </div>
+          </section>';
         } else {
             $email = $_POST['email'];
             $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);

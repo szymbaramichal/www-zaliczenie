@@ -22,11 +22,11 @@
     $title = $_POST["title"];
     $content = $_POST["content"];
     $year = $_POST["year"];
-    $id = $_POST["id"];
+    $id = $_POST["id"] ?? null;
 
     $validTitle = !empty($title);
     $validUser = isset($_COOKIE["user"]);
-    $validContent = !empty($content);
+    $validContent = !empty($content) && strlen($content) <= 500;
     $validYear = !empty($year);
 
     $allFieldsAreValid = $validTitle && $validContent && $validYear && $validUser;
@@ -34,22 +34,48 @@
     if (!$_SERVER["REQUEST_METHOD"] == "POST" || !$allFieldsAreValid) {
 
       if (!$validUser) {
-        echo "Nie jesteś zalogowany. Zaloguj się na stronę. </br>";
+        echo '<section id="main" class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading text-black">Nie jesteś zalogowany. Zaloguj się aby dodać wiersz!</h1>
+          <p>
+            <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+          </p>
+        </div>
+      </section>';
       }
 
       if (!$validTitle) {
-        echo "Tytuł jest wymagany </br>";
+        echo '<section id="main" class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading text-black">Tytuł jest wymagany</h1>
+          <p>
+            <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+          </p>
+        </div>
+      </section>';
       }
 
       if (!$validContent) {
-        echo "Treść jest wymagana </br>";
+        echo '<section id="main" class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading text-black">Treść wiersza jest wymagana, może mieć maksymalnie 500 znaków!</h1>
+          <p>
+            <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+          </p>
+        </div>
+      </section>';
       }
     
       if (!$validYear) {
-        echo "Rok napisania jest wymagany </br>";
+        echo '<section id="main" class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading text-black">Podaj rok napisania wiersza!</h1>
+          <p>
+            <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+          </p>
+        </div>
+      </section>';
       }
-      
-      echo "<a href='addPoem.html'>Uzupełnij formularz jeszcze raz.</a>";
     } else {
         $servername = "localhost";
         $dbname = "projekt";
@@ -73,13 +99,25 @@
 
         if($conn->query($sql)) 
         {
-            echo "Dodano poprawnie wiersz! :) </br>";
-            echo "<a href='index.php'>Wróć na stronę</a>";
+            echo '<section id="main" class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading text-capitalize text-black">Dodano wiersz!</h1>
+              <p>
+                <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+              </p>
+            </div>
+          </section>';
         }
         else
         {
-            echo "Problem z dodaniem wiersza, spróbuj jeszcze raz :( </br>";
-            echo "<a href='index.php'>Wróć na stronę</a>";
+          echo '<section id="main" class="jumbotron text-center">
+          <div class="container">
+            <h1 class="jumbotron-heading text-black">Coś poszło nie tak!</h1>
+            <p>
+              <a href="index.php" class="btn btn-primary my-2">Wróć na główną!</a>
+            </p>
+          </div>
+        </section>';
         }
       $conn->close();
     }

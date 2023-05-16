@@ -13,45 +13,14 @@
   <header>
     <div class="navbar navbar-dark bg-dark box-shadow">
       <div class="container d-flex justify-content-between">
-        <a href="#" class="navbar-brand d-flex align-items-center">
+        <a href="index.php" class="navbar-brand d-flex align-items-center">
             <strong>Wiersze online</strong>
         </a>
-        <a href="allpoems.php" class="navbar-brand">
-            <strong class="text-muted">Wszystkie wiersze</strong>
-        </a>
-        <?php
-          if(!isset($_COOKIE["user"]))
-          {
-            echo '<form class="row" method="POST" action="authUser.php"> <input type="email" class="form-control col-3" name="email" placeholder="Email">
-            <input type="password" class="form-control col-3 ml-1" name="password" placeholder="Hasło">
-            <button type="submit" class="btn btn-success ml-2" name="action" value="LogIn">Zaloguj!</button>
-            <button type="submit" class="btn btn-info ml-2" name="action" value="Register">Załóż konto!</button>
-            </form>';
-          }
-          else
-          {
-            echo '<form class="row" method="POST" action="logout.php">
-            <p class="text-center text-info h3"> Witaj '.$_COOKIE["user"].'</p>
-            <button type="submit" class="btn btn-danger ml-2" name="action" value="Register">Wyloguj się!</button>
-            </form>';
-          }
-        ?>
       </div>
     </div>
   </header>
 
   <main role="main">
-
-    <section id="main" class="jumbotron text-center">
-      <div class="container">
-        <h1 class="jumbotron-heading text-capitalize text-white">Wiersze online</h1>
-        <p class="lead text-white">Dodawaj i czytaj wiersze online! Korzystaj z tekstów za darmo!</p>
-        <p>
-          <a href="addpoem.php" class="btn btn-primary my-2">Dodaj wiersz!</a>
-          <a href="poets.html" class="btn btn-secondary my-2">Galeria poetów</a>
-        </p>
-      </div>
-    </section>
 
     <div class="album py-5 bg-light">
       <div class="container">
@@ -65,7 +34,7 @@
 
               $conn = new mysqli($servername, $username, $password, $dbname);
 
-              $sql = "SELECT Id, Author, Title, Content, PoemDate FROM poems ORDER BY Id DESC LIMIT 9";
+              $sql = "SELECT Id, Author, Title, Content, PoemDate FROM poems ORDER BY Id DESC";
 
               $result = $conn->query($sql);
 
@@ -111,37 +80,5 @@
     </div>
 
   </main>
-
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Wróc na górę</a>
-      </p>
-      <p>Strona to projekt zaliczeniowy na przedmiot: Języki hipertekstowe i tworzenie stron WWW</p>
-      <p>W razie zainteresowania jak progresowały prace nad projektem zapraszam do mojego <a href="https://github.com/szymbaramichal/www-zaliczenie">repozytorium</a>.</p>
-      <p>
-        <?php
-          if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
-
-          $sql = "SELECT Amount FROM Visitors WHERE Id = 1";
-
-          $result = $conn->query($sql);
-          $row = $result->fetch_assoc();
-          $amount = $row["Amount"];
-
-          echo "Stronę wyświetlono: " . $amount  . " razy.";
-
-          $amount++;
-
-          $sql = "UPDATE Visitors SET Amount=" .$amount. " WHERE Id = 1";
-          $conn->query($sql);
-          $conn->close();
-          ?>
-      </p>
-      <a href="easteregg.html"><p>Canvasy tutaj!</p></a>
-    </div>
-  </footer>
 </body>
 </html>
